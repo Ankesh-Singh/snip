@@ -62,7 +62,7 @@ Follow these steps to run the complete stack locally:
 ### 1. Installation
 Clone the repository and install all dependencies using pnpm:
 ```bash
-git clone https://github.com/your-username/snip.git
+git clone https://github.com/Ethan4582/snip.git
 cd snip
 pnpm install
 ```
