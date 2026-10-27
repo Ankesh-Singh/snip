@@ -15,7 +15,8 @@ export async function middleware(request: NextRequest) {
   }
 
   // It's a short code! Forward the request to the edge worker.
-  const targetUrl = `https://snip-edge.t7labs.workers.dev${pathname}`
+  const edgeOrigin = process.env.NEXT_PUBLIC_EDGE_URL || 'http://localhost:8787'
+  const targetUrl = `${edgeOrigin.replace(/\/$/, '')}${pathname}`
   
   // Clone original headers so we preserve User-Agent, X-Forwarded-For, etc.
   const headers = new Headers(request.headers)

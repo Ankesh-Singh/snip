@@ -30,6 +30,7 @@ WORKDIR /app
 COPY --from=builder /prod/api ./
 
 ENV NODE_ENV=production
-EXPOSE 3001
+ENV PORT=10000
+EXPOSE 10000
 
 CMD ["npx", "tsx", "src/index.ts"]

@@ -8,6 +8,8 @@ export interface Env {
   APP_URL: string
   UPSTASH_REDIS_REST_URL: string
   UPSTASH_REDIS_REST_TOKEN: string
+  INTERNAL_SECRET: string
+  SENTRY_DSN?: string
   ANALYTICS_ENGINE: any
 }
 
@@ -213,7 +215,7 @@ const workerConfig = {
         const cleanupRes = await fetch(cleanupUrl, {
           method: 'POST',
           headers: {
-            'x-internal-secret': (env as any).INTERNAL_SECRET || ''
+            'x-internal-secret': env.INTERNAL_SECRET || ''
           }
         })
         if (!cleanupRes.ok) {

@@ -36,7 +36,7 @@ CAP considerations, and everything cut from the original design  see
 
 | Layer | Technology |
 |---|---|
-| Frontend | Next.js, deployed on Cloudflare Pages |
+| Frontend | Next.js via OpenNext, deployed on Cloudflare Workers |
 | API | Hono (Node), deployed on Render |
 | Edge / redirects | Hono, deployed as a Cloudflare Worker |
 | Database | Postgres (Supabase), via Drizzle ORM |
@@ -62,7 +62,7 @@ Follow these steps to run the complete stack locally:
 ### 1. Installation
 Clone the repository and install all dependencies using pnpm:
 ```bash
-git clone https://github.com/Ethan4582/snip.git
+git clone https://github.com/Ankesh-Singh/snip.git
 cd snip
 pnpm install
 ```
@@ -74,7 +74,7 @@ Copy the `.env.example` file to `.env` in the root and inside each app directory
 - `/apps/edge/.env`
 - `/apps/web/.env`
 
-*(See `setup.md` for a detailed guide on how to obtain credentials for Supabase, Upstash Redis, and Cloudflare).*
+See [`DEPLOYMENT.md`](./DEPLOYMENT.md) for the complete environment-variable and deployment guide.
 
 ### 3. Run Locally
 Start all development servers. You can run these commands from the root directory:
@@ -94,9 +94,9 @@ pnpm --filter edge dev
 
 Deploys are handled manually per-service to maintain full control over the infrastructure (see `system_design.md` for the reasoning behind this scope decision):
 
-- **API (`/apps/api`)**: Deployed on Render. Redeploy directly from the Render dashboard.
+- **API (`/apps/api`)**: Deployed on Render using the root `render.yaml` Blueprint or the dashboard.
 - **Edge Worker (`/apps/edge`)**: Deployed to Cloudflare. Run `pnpm --filter edge deploy` from the root directory.
-- **Dashboard (`/apps/web`)**: Deployed on Cloudflare Pages. Automatically deploys when you push to the `main` branch.
+- **Dashboard (`/apps/web`)**: Deployed to Cloudflare Workers through OpenNext. Run `pnpm --filter web deploy` from the root directory.
 
 
 

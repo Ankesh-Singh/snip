@@ -1,0 +1,33 @@
+services:
+  - type: web
+    name: snip-api
+    runtime: docker
+    plan: free
+    dockerfilePath: ./apps/api/Dockerfile
+    dockerContext: .
+    healthCheckPath: /health
+    envVars:
+      - key: PORT
+        value: 10000
+      - key: DATABASE_URL
+        sync: false
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
+      - key: UPSTASH_REDIS_REST_URL
+        sync: false
+      - key: UPSTASH_REDIS_REST_TOKEN
+        sync: false
+      - key: BASE_URL
+        sync: false
+      - key: CORS_ORIGIN
+        sync: false
+      - key: INTERNAL_SECRET
+        generateValue: true
+      - key: CF_ACCOUNT_ID
+        sync: false
+      - key: CF_ANALYTICS_API_TOKEN
+        sync: false
+      - key: SENTRY_DSN
+        sync: false

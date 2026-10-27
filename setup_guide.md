@@ -53,10 +53,10 @@ The edge worker uses Cloudflare KV to cache shortened URLs for fast redirects.
 
 1. Check your `apps/web/.env` file. We renamed the keys to use the `VITE_` prefix. Ensure they are correct:
    ```env
-   VITE_SUPABASE_URL="https://[YOUR-PROJECT-REF].supabase.co"
-   VITE_SUPABASE_ANON_KEY="[YOUR-ANON-KEY]"
-   VITE_API_URL="http://localhost:3000"
-   VITE_EDGE_URL="http://localhost:8787"
+   NEXT_PUBLIC_SUPABASE_URL="https://[YOUR-PROJECT-REF].supabase.co"
+   NEXT_PUBLIC_SUPABASE_ANON_KEY="[YOUR-ANON-KEY]"
+   NEXT_PUBLIC_API_URL="http://localhost:3000"
+   NEXT_PUBLIC_EDGE_URL="http://localhost:8787"
    ```
 
 ## 5. Running the App
