@@ -1,6 +1,10 @@
 {
   "name": "snip",
   "private": true,
+  "author": {
+    "name": "Ankesh Singh",
+    "url": "https://aanks.xyz"
+  },
   "packageManager": "pnpm@11.5.0",
   "scripts": {
     "dev": "turbo run dev",

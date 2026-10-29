@@ -1,5 +1,4 @@
 import 'dotenv/config'
-import * as Sentry from '@sentry/node'
 import { serve } from '@hono/node-server'
 import { Hono } from 'hono'
 import { cors } from 'hono/cors'
@@ -13,24 +12,7 @@ import internalRouter from './routes/internal'
 
 const app = new Hono()
 
-if (process.env.SENTRY_DSN) {
-  Sentry.init({
-    dsn: process.env.SENTRY_DSN,
-    environment: process.env.NODE_ENV || 'development'
-  })
-}
-
 app.use('*', logger())
-app.use('*', async (_c, next) => {
-  try {
-    await next()
-  } catch (err) {
-    if (process.env.SENTRY_DSN) {
-      Sentry.captureException(err)
-    }
-    throw err
-  }
-})
 app.use(
   '*',
   cors({
@@ -46,8 +28,6 @@ app.route('/health', healthRouter)
 app.route('/analytics', analyticsRouter)
 app.route('/account', accountRouter)
 app.route('/internal', internalRouter)
-
-
 
 const port = Number(process.env.PORT ?? 3000)
 console.log(`API listening on port ${port}`)

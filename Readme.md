@@ -16,7 +16,6 @@ A production-ready URL shortener with edge redirects and real-time analytics.
 - Per-link analytics: total clicks, clicks over time, top countries,
   referrers, and devices
 - Account-wide dashboard: totals, trends, and top-performing links
-- Error tracking across every service via Sentry
 
 
 ## Architecture
@@ -43,7 +42,6 @@ CAP considerations, and everything cut from the original design  see
 | Auth | Supabase Auth |
 | Cache + counter | Upstash Redis |
 | Analytics pipeline | Redis Streams → Cloudflare Cron Trigger → Cloudflare Analytics Engine |
-| Error tracking | Sentry |
 
 ## Project structure
 
@@ -74,7 +72,7 @@ Copy the `.env.example` file to `.env` in the root and inside each app directory
 - `/apps/edge/.env`
 - `/apps/web/.env`
 
-See [`DEPLOYMENT.md`](./DEPLOYMENT.md) for the complete environment-variable and deployment guide.
+See [`setup_guide.md`](./setup_guide.md) for the complete environment-variable and setup guide.
 
 ### 3. Run Locally
 Start all development servers. You can run these commands from the root directory:
@@ -92,7 +90,7 @@ pnpm --filter edge dev
 
 ## Deployment
 
-Deploys are handled manually per-service to maintain full control over the infrastructure (see `system_design.md` for the reasoning behind this scope decision):
+Deploys are handled per-service to maintain full control over the infrastructure (see `system_design.md` for the reasoning behind this scope decision):
 
 - **API (`/apps/api`)**: Deployed on Render using the root `render.yaml` Blueprint or the dashboard.
 - **Edge Worker (`/apps/edge`)**: Deployed to Cloudflare. Run `pnpm --filter edge deploy` from the root directory.

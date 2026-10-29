@@ -5,7 +5,7 @@ packages:
   - 'packages/*'
 
 allowBuilds:
-  '@sentry/cli': true
+  '@sentry/cli': set this to true or false
   esbuild: true
   sharp: true
   unrs-resolver: true

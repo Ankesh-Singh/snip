@@ -29,5 +29,3 @@ services:
         sync: false
       - key: CF_ANALYTICS_API_TOKEN
         sync: false
-      - key: SENTRY_DSN
-        sync: false

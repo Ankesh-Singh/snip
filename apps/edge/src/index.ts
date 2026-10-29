@@ -1,6 +1,5 @@
 import { Redis } from '@upstash/redis/cloudflare'
 import { UAParser } from 'ua-parser-js'
-import { withSentry } from '@sentry/cloudflare'
 
 export interface Env {
   URL_CACHE: KVNamespace
@@ -9,7 +8,6 @@ export interface Env {
   UPSTASH_REDIS_REST_URL: string
   UPSTASH_REDIS_REST_TOKEN: string
   INTERNAL_SECRET: string
-  SENTRY_DSN?: string
   ANALYTICS_ENGINE: any
 }
 
@@ -53,8 +51,7 @@ function errorPage(title: string, message: string, status: number, appUrl: strin
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>${title}</title>
       <style>
-        body { font-family: system-ui, -apple-system, sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; background-color: #fafafa; color: #111; }
-        .container { text-align: center; max-width: 400px; padding: 2.5rem 2rem; background: white; border-radius: 12px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); border: 1px solid #eaeaea; }
+        body { font-family: system-ui, -apple-system, sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; background-color: #fafafa; color: #111; }\n        .container { text-align: center; max-width: 400px; padding: 2.5rem 2rem; background: white; border-radius: 12px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); border: 1px solid #eaeaea; }
         h1 { margin-top: 0; font-size: 1.5rem; font-weight: 600; letter-spacing: -0.025em; margin-bottom: 0.5rem; }
         p { color: #555; margin-bottom: 2rem; line-height: 1.5; font-size: 0.95rem; }
         a { display: inline-flex; align-items: center; justify-content: center; background-color: #000; color: #fff; text-decoration: none; padding: 0.625rem 1.25rem; border-radius: 6px; font-weight: 500; font-size: 0.875rem; transition: background-color 0.2s; }
@@ -76,7 +73,7 @@ function errorPage(title: string, message: string, status: number, appUrl: strin
   })
 }
 
-const workerConfig = {
+export default {
   async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
     const url = new URL(request.url)
 
@@ -227,12 +224,7 @@ const workerConfig = {
 
     } catch (err) {
       console.error('Scheduled error:', err)
-      throw err // Let Sentry catch it
+      throw err
     }
   }
 }
-
-export default withSentry(
-  env => env.SENTRY_DSN,
-  workerConfig
-)

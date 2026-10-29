@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "@hono/node-server": "^1.13.7",
-    "@sentry/node": "^10.65.0",
     "@snip/db": "workspace:*",
     "@snip/shared": "workspace:*",
     "@supabase/supabase-js": "^2.45.4",
